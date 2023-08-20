@@ -88,25 +88,25 @@ manchete_dn <- tibble(
   desc = dn %>% read_html() %>% html_nodes(xpath = '//meta[@property="og:description"]') %>% html_attr("content"),
   link = dn
 )
-# 
-# 
-# cm <- read_html(sites[5]) %>% 
-#   html_element(".manchetes_container") %>% 
-#   html_element(".manchete_maior") %>% 
-#   html_element("article") %>% 
-#   html_element("h1") %>% 
-#   html_element("a") %>% 
-#   html_attr("href")
-# 
-# cm <- glue("https://www.cmjornal.pt{cm}")
-# 
-# manchete_cm <- tibble(
-#   time = Sys.time(),
-#   titulo = cm %>% read_html() %>% html_nodes(xpath = '//meta[@property="og:title"]') %>% html_attr("content"),
-#   thumb = cm %>% read_html() %>% html_nodes(xpath = '//meta[@property="og:image"]') %>% html_attr("content"),
-#   desc = cm %>% read_html() %>% html_nodes('meta[name="description"]') %>% html_attr("content"),
-#   link = cm
-# )
+
+
+cm <- read_html(sites[5]) %>%
+  html_element(".manchetes_container") %>%
+  html_element(".manchete_maior") %>%
+  html_element("article") %>%
+  html_element("h1") %>%
+  html_element("a") %>%
+  html_attr("href")
+
+cm <- glue("https://www.cmjornal.pt{cm}")
+
+manchete_cm <- tibble(
+  time = Sys.time(),
+  titulo = cm %>% read_html() %>% html_nodes(xpath = '//meta[@property="og:title"]') %>% html_attr("content"),
+  thumb = cm %>% read_html() %>% html_nodes(xpath = '//meta[@property="og:image"]') %>% html_attr("content"),
+  desc = cm %>% read_html() %>% html_nodes('meta[name="description"]') %>% html_attr("content"),
+  link = cm
+)
 # 
 # 
 # tsf <- read_html(sites[6]) %>% 
@@ -252,9 +252,9 @@ manchete_dn <- tibble(
 to_publish <- manchete_publico %>%
   bind_rows(manchete_expresso) %>%
   bind_rows(manchete_rr) %>%
-  bind_rows(manchete_dn)
-# %>%
-#   bind_rows(manchete_cm) %>%
+  bind_rows(manchete_dn) %>%
+  bind_rows(manchete_cm)
+#  %>%
 #   bind_rows(manchete_tsf) %>%
 #   bind_rows(manchete_rtp) %>%
 #   bind_rows(manchete_sic) %>%
