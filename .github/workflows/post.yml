@@ -1,6 +1,10 @@
 name: "Post to Bluesky"
 
-on: workflow_dispatch
+on:
+    workflow_run:
+      workflows: ["scraper"]
+      types:
+        - completed
 
 jobs:
   post:
