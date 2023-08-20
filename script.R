@@ -37,23 +37,23 @@ manchete_publico <- tibble(
   link = publico
 )
 
-# 
-# 
-# expresso <- read_html(sites[2]) %>% 
-#   html_element(".bloco-manchetes") %>% 
-#   html_element("article") %>% 
-#   html_element("a") %>% 
-#   html_attr("href")
-# 
-# expresso <- glue("https://expresso.pt{expresso}")
-# 
-# manchete_expresso <- tibble(
-#   time = Sys.time(),
-#   titulo = expresso %>% read_html() %>% html_nodes(xpath = '//meta[@property="og:title"]') %>% html_attr("content"),
-#   thumb = expresso %>% read_html() %>% html_nodes(xpath = '//meta[@property="og:image"]') %>% html_attr("content"),
-#   desc = expresso %>% read_html() %>% html_nodes(xpath = '//meta[@property="og:description"]') %>% html_attr("content"),
-#   link = expresso
-# )
+
+
+expresso <- read_html(sites[2]) %>%
+  html_element(".bloco-manchetes") %>%
+  html_element("article") %>%
+  html_element("a") %>%
+  html_attr("href")
+
+expresso <- glue("https://expresso.pt{expresso}")
+
+manchete_expresso <- tibble(
+  time = Sys.time(),
+  titulo = expresso %>% read_html() %>% html_nodes(xpath = '//meta[@property="og:title"]') %>% html_attr("content"),
+  thumb = expresso %>% read_html() %>% html_nodes(xpath = '//meta[@property="og:image"]') %>% html_attr("content"),
+  desc = expresso %>% read_html() %>% html_nodes(xpath = '//meta[@property="og:description"]') %>% html_attr("content"),
+  link = expresso
+)
 # 
 # 
 # 
@@ -248,42 +248,43 @@ manchete_publico <- tibble(
 #   link = ji
 # )
 # 
-# 
-# to_publish <- manchete_publico %>% 
-#   bind_rows(manchete_expresso) %>% 
-#   bind_rows(manchete_rr) %>% 
-#   bind_rows(manchete_dn) %>% 
-#   bind_rows(manchete_cm) %>% 
-#   bind_rows(manchete_tsf) %>% 
-#   bind_rows(manchete_rtp) %>% 
-#   bind_rows(manchete_sic) %>% 
-#   bind_rows(manchete_cnn) %>% 
-#   bind_rows(manchete_obs) %>% 
-#   bind_rows(manchete_nam) %>% 
-#   bind_rows(manchete_sol) %>% 
+
+to_publish <- manchete_publico %>%
+  bind_rows(manchete_expresso) %>%
+  bind_rows(manchete_rr) 
+# %>%
+#   bind_rows(manchete_dn) %>%
+#   bind_rows(manchete_cm) %>%
+#   bind_rows(manchete_tsf) %>%
+#   bind_rows(manchete_rtp) %>%
+#   bind_rows(manchete_sic) %>%
+#   bind_rows(manchete_cnn) %>%
+#   bind_rows(manchete_obs) %>%
+#   bind_rows(manchete_nam) %>%
+#   bind_rows(manchete_sol) %>%
 #   bind_rows(manchete_ji)
-# 
-# 
-# df <- read_rds("por_publicar.rds") %>% 
-#   bind_rows(to_publish) %>% 
-#   distinct(titulo, .keep_all = T)
-# 
-# 
-# random_index <- sample(1:nrow(to_publish), 1)
-# 
-# noticia_a_publicar <- df[random_index,]
-# toJSON(noticia_a_publicar) %>% write("apublicar.json")
-# 
-# 
-# noticias_publicadas <- read_rds("noticias_pubicadas.rds") %>% 
-#   bind_rows(noticia_a_publicar) %>% 
-#   distinct(titulo, .keep_all = T)
-# 
-# noticias_publicadas %>% write_rds("noticias_pubicadas.rds")
-# 
-# df <- df %>% 
-#   anti_join(noticias_publicadas) %>% 
-#   filter(time >= (Sys.time() - hours(8)))
+
+
+df <- read_rds("por_publicar.rds") %>%
+  bind_rows(to_publish) %>%
+  distinct(titulo, .keep_all = T)
+
+
+random_index <- sample(1:nrow(to_publish), 1)
+
+noticia_a_publicar <- df[random_index,]
+toJSON(noticia_a_publicar) %>% write("apublicar.json")
+
+
+noticias_publicadas <- read_rds("noticias_pubicadas.rds") %>%
+  bind_rows(noticia_a_publicar) %>%
+  distinct(titulo, .keep_all = T)
+
+noticias_publicadas %>% write_rds("noticias_pubicadas.rds")
+
+df <- df %>%
+  anti_join(noticias_publicadas) %>%
+  filter(time >= (Sys.time() - hours(8)))
 
 
 
