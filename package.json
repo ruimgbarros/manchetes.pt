@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "@atproto/api": "^0.6.4",
+    "fs": "^0.0.1-security",
+    "sharp": "^0.32.5"
+  }
+}
