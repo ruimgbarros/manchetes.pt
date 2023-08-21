@@ -192,62 +192,57 @@ manchete_obs <- tibble(
   desc = obs %>% read_html() %>% html_nodes('meta[name="description"]') %>% html_attr("content"),
   link = obs
 )
-# 
-# 
-# nam <- read_html(sites[11]) %>% 
-#   html_element(".swiper-wrapper") %>% 
-#   html_element("a") %>% 
-#   html_attr("href") %>% 
-#   str_trim()
-# 
-# 
-# manchete_nam <- tibble(
-#   time = Sys.time(),
-#   titulo = nam %>% read_html() %>% html_nodes(xpath = '//meta[@property="og:title"]') %>% html_attr("content"),
-#   thumb = nam %>% read_html() %>% html_nodes(xpath = '//meta[@property="og:image"]') %>% html_attr("content"),
-#   desc = nam %>% read_html() %>% html_nodes('meta[name="description"]') %>% html_attr("content"),
-#   link = nam
-# )
-# 
-# 
-# 
-# sol <- read_html(sites[12]) %>% 
-#   html_element("#block1") %>% 
-#   html_element("a") %>% 
-#   html_attr("href") %>% 
-#   str_trim()
-# 
-# sol <- glue("https://sol.sapo.pt{sol}")
-# 
-# 
-# manchete_sol <- tibble(
-#   time = Sys.time(),
-#   titulo = sol %>% read_html() %>% html_nodes(xpath = '//meta[@property="og:title"]') %>% html_attr("content"),
-#   thumb = sol %>% read_html() %>% html_nodes(xpath = '//meta[@property="og:image"]') %>% html_attr("content"),
-#   desc = sol %>% read_html() %>% html_nodes('meta[name="description"]') %>% html_attr("content"),
-#   link = sol
-# )
-# 
-# 
-# 
-# 
-# ji <- read_html(sites[13]) %>% 
-#   html_element("#manchete") %>% 
-#   html_element("a") %>% 
-#   html_attr("href") %>% 
-#   str_trim()
-# 
-# ji <- glue("https://ionline.sapo.pt{ji}")
-# 
-# 
-# manchete_ji <- tibble(
-#   time = Sys.time(),
-#   titulo = ji %>% read_html() %>% html_nodes(xpath = '//meta[@property="og:title"]') %>% html_attr("content"),
-#   thumb = ji %>% read_html() %>% html_nodes(xpath = '//meta[@property="og:image"]') %>% html_attr("content"),
-#   desc = ji %>% read_html() %>% html_nodes('meta[name="description"]') %>% html_attr("content"),
-#   link = ji
-# )
-# 
+
+nam <- read_html(sites[11]) %>%
+  html_element(".swiper-wrapper") %>%
+  html_element("a") %>%
+  html_attr("href") %>%
+  str_trim()
+
+
+manchete_nam <- tibble(
+  time = Sys.time(),
+  titulo = nam %>% read_html() %>% html_nodes(xpath = '//meta[@property="og:title"]') %>% html_attr("content"),
+  thumb = nam %>% read_html() %>% html_nodes(xpath = '//meta[@property="og:image"]') %>% html_attr("content"),
+  desc = nam %>% read_html() %>% html_nodes('meta[name="description"]') %>% html_attr("content"),
+  link = nam
+)
+
+sol <- read_html(sites[12]) %>%
+  html_element("#block1") %>%
+  html_element("a") %>%
+  html_attr("href") %>%
+  str_trim()
+
+sol <- glue("https://sol.sapo.pt{sol}")
+
+
+manchete_sol <- tibble(
+  time = Sys.time(),
+  titulo = sol %>% read_html() %>% html_nodes(xpath = '//meta[@property="og:title"]') %>% html_attr("content"),
+  thumb = sol %>% read_html() %>% html_nodes(xpath = '//meta[@property="og:image"]') %>% html_attr("content"),
+  desc = sol %>% read_html() %>% html_nodes('meta[name="description"]') %>% html_attr("content"),
+  link = sol
+)
+
+
+ji <- read_html(sites[13]) %>%
+  html_element("#manchete") %>%
+  html_element("a") %>%
+  html_attr("href") %>%
+  str_trim()
+
+ji <- glue("https://ionline.sapo.pt{ji}")
+
+
+manchete_ji <- tibble(
+  time = Sys.time(),
+  titulo = ji %>% read_html() %>% html_nodes(xpath = '//meta[@property="og:title"]') %>% html_attr("content"),
+  thumb = ji %>% read_html() %>% html_nodes(xpath = '//meta[@property="og:image"]') %>% html_attr("content"),
+  desc = ji %>% read_html() %>% html_nodes('meta[name="description"]') %>% html_attr("content"),
+  link = ji
+)
+
 
 to_publish <- manchete_publico %>%
   bind_rows(manchete_expresso) %>%
@@ -257,27 +252,30 @@ to_publish <- manchete_publico %>%
   bind_rows(manchete_tsf) %>%
   bind_rows(manchete_sic) %>%
   bind_rows(manchete_cnn) %>%
-  bind_rows(manchete_obs)
-#%>%
-#   bind_rows(manchete_nam) %>%
-#   bind_rows(manchete_sol) %>%
-#   bind_rows(manchete_ji)
+  bind_rows(manchete_obs) %>%
+  bind_rows(manchete_nam) %>%
+  bind_rows(manchete_sol) %>%
+  bind_rows(manchete_ji)
 
 
 df <- read_rds("por_publicar.rds") %>%
   bind_rows(to_publish) %>%
   distinct(titulo, .keep_all = T)
 
-noticias_publicadas <- read_rds("noticias_pubicadas.rds")
+noticias_publicadas <- read_rds("noticias_pubicadas.rds") %>% 
+  distinct(titulo, .keep_all = T)
 
 df <- df %>%
   anti_join(noticias_publicadas) %>%
   filter(time >= (Sys.time() - hours(8)))
 
-random_index <- sample(1:nrow(to_publish), 1)
-
-noticia_a_publicar <- df[random_index,]
-toJSON(noticia_a_publicar) %>% write("apublicar.json")
+if(nrow(df) == 0) {
+  toJSON(df) %>% write("apublicar.json")
+} else {
+  random_index <- sample(1:nrow(to_publish), 1)
+  noticia_a_publicar <- df[random_index,]
+  toJSON(noticia_a_publicar) %>% write("apublicar.json")
+}
 
 
 noticias_publicadas <- noticias_publicadas %>% 
