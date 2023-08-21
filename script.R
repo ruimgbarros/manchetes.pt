@@ -37,6 +37,9 @@ manchete_publico <- tibble(
   link = publico
 )
 
+cat(glue("getting {sites[1]}"))
+cat("/n")
+
 
 
 expresso <- read_html(sites[2]) %>%
@@ -55,6 +58,9 @@ manchete_expresso <- tibble(
   link = expresso
 )
 
+cat(glue("getting {sites[2]}"))
+cat("/n")
+
 
 
 rr <- read_html(sites[3]) %>%
@@ -72,6 +78,9 @@ manchete_rr <- tibble(
   link = rr
 )
 
+cat(glue("getting {sites[3]}"))
+cat("/n")
+
 
 
 dn <- read_html(sites[4]) %>%
@@ -88,6 +97,9 @@ manchete_dn <- tibble(
   desc = dn %>% read_html() %>% html_nodes(xpath = '//meta[@property="og:description"]') %>% html_attr("content"),
   link = dn
 )
+
+cat(glue("getting {sites[4]}"))
+cat("/n")
 
 
 cm <- read_html(sites[5]) %>%
@@ -108,6 +120,9 @@ manchete_cm <- tibble(
   link = cm
 )
 
+cat(glue("getting {sites[5]}"))
+cat("/n")
+
 
 tsf <- read_html(sites[6]) %>%
   html_element(".t-section-4") %>%
@@ -124,6 +139,10 @@ manchete_tsf <- tibble(
   desc = tsf %>% read_html() %>% html_nodes('meta[name="description"]') %>% html_attr("content"),
   link = tsf
 )
+
+cat(glue("getting {sites[6]}"))
+cat("/n")
+
 
 # 
 # rtp <- read_html(sites[7]) %>%
@@ -161,6 +180,10 @@ manchete_sic <- tibble(
   link = sic
 )
 
+cat(glue("getting {sites[8]}"))
+cat("/n")
+
+
 
 cnn <- read_html(sites[9]) %>%
   html_element(".manchetes") %>%
@@ -178,6 +201,10 @@ manchete_cnn <- tibble(
 )
 
 
+cat(glue("getting {sites[9]}"))
+cat("/n")
+
+
 obs <- read_html(sites[10]) %>%
   html_element(".editorial-grid") %>%
   html_element("a") %>%
@@ -193,6 +220,10 @@ manchete_obs <- tibble(
   link = obs
 )
 
+cat(glue("getting {sites[10]}"))
+cat("/n")
+
+
 nam <- read_html(sites[11]) %>%
   html_element(".swiper-wrapper") %>%
   html_element("a") %>%
@@ -207,6 +238,10 @@ manchete_nam <- tibble(
   desc = nam %>% read_html() %>% html_nodes('meta[name="description"]') %>% html_attr("content"),
   link = nam
 )
+
+cat(glue("getting {sites[11]}"))
+cat("/n")
+
 
 sol <- read_html(sites[12]) %>%
   html_element("#block1") %>%
@@ -225,6 +260,10 @@ manchete_sol <- tibble(
   link = sol
 )
 
+cat(glue("getting {sites[12]}"))
+cat("/n")
+
+
 
 ji <- read_html(sites[13]) %>%
   html_element("#manchete") %>%
@@ -242,6 +281,10 @@ manchete_ji <- tibble(
   desc = ji %>% read_html() %>% html_nodes('meta[name="description"]') %>% html_attr("content"),
   link = ji
 )
+
+cat(glue("getting {sites[13]}"))
+cat("/n")
+
 
 
 to_publish <- manchete_publico %>%
