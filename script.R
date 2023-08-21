@@ -143,23 +143,23 @@ manchete_rtp <- tibble(
 
 
 
-sic <- read_html(sites[8]) %>%
-  html_element(".wrapper") %>%
-  html_element("section") %>%
-  html_element("a") %>%
-  html_attr("href") %>%
-  str_trim()
-
-sic <- glue("https://sicnoticias.pt/{sic}")
-
-
-manchete_sic <- tibble(
-  time = Sys.time(),
-  titulo = sic %>% read_html() %>% html_nodes(xpath = '//meta[@property="og:title"]') %>% html_attr("content"),
-  thumb = sic %>% read_html() %>% html_nodes(xpath = '//meta[@property="og:image"]') %>% html_attr("content"),
-  desc = sic %>% read_html() %>% html_nodes('meta[name="description"]') %>% html_attr("content"),
-  link = sic
-)
+# sic <- read_html(sites[8]) %>%
+#   html_element(".wrapper") %>%
+#   html_element("section") %>%
+#   html_element("a") %>%
+#   html_attr("href") %>%
+#   str_trim()
+# 
+# sic <- glue("https://sicnoticias.pt/{sic}")
+# 
+# 
+# manchete_sic <- tibble(
+#   time = Sys.time(),
+#   titulo = sic %>% read_html() %>% html_nodes(xpath = '//meta[@property="og:title"]') %>% html_attr("content"),
+#   thumb = sic %>% read_html() %>% html_nodes(xpath = '//meta[@property="og:image"]') %>% html_attr("content"),
+#   desc = sic %>% read_html() %>% html_nodes('meta[name="description"]') %>% html_attr("content"),
+#   link = sic
+# )
 
 
 # cnn <- read_html(sites[9]) %>%
@@ -255,8 +255,9 @@ to_publish <- manchete_publico %>%
   bind_rows(manchete_dn) %>%
   bind_rows(manchete_cm) %>%
   bind_rows(manchete_tsf) %>%
-  bind_rows(manchete_rtp) %>%
-  bind_rows(manchete_sic) 
+  bind_rows(manchete_rtp) 
+#%>%
+  # bind_rows(manchete_sic) 
 #%>%
   # bind_rows(manchete_cnn) 
 # %>%
