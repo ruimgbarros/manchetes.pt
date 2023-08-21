@@ -162,20 +162,20 @@ manchete_sic <- tibble(
 )
 
 
-cnn <- read_html(sites[9]) %>%
-  html_element(".manchetes") %>%
-  html_element("a") %>%
-  html_attr("href") %>%
-  str_trim()
-
-
-manchete_cnn <- tibble(
-  time = Sys.time(),
-  titulo = cnn %>% read_html() %>% html_nodes(xpath = '//meta[@property="og:title"]') %>% html_attr("content"),
-  thumb = cnn %>% read_html() %>% html_nodes(xpath = '//meta[@property="og:image"]') %>% html_attr("content"),
-  desc = cnn %>% read_html() %>% html_nodes('meta[name="description"]') %>% html_attr("content"),
-  link = cnn
-)
+# cnn <- read_html(sites[9]) %>%
+#   html_element(".manchetes") %>%
+#   html_element("a") %>%
+#   html_attr("href") %>%
+#   str_trim()
+# 
+# 
+# manchete_cnn <- tibble(
+#   time = Sys.time(),
+#   titulo = cnn %>% read_html() %>% html_nodes(xpath = '//meta[@property="og:title"]') %>% html_attr("content"),
+#   thumb = cnn %>% read_html() %>% html_nodes(xpath = '//meta[@property="og:image"]') %>% html_attr("content"),
+#   desc = cnn %>% read_html() %>% html_nodes('meta[name="description"]') %>% html_attr("content"),
+#   link = cnn
+# )
 
 
 # obs <- read_html(sites[10]) %>%
@@ -256,8 +256,9 @@ to_publish <- manchete_publico %>%
   bind_rows(manchete_cm) %>%
   bind_rows(manchete_tsf) %>%
   bind_rows(manchete_rtp) %>%
-  bind_rows(manchete_sic) %>%
-  bind_rows(manchete_cnn) 
+  bind_rows(manchete_sic) 
+#%>%
+  # bind_rows(manchete_cnn) 
 # %>%
   # bind_rows(manchete_obs) 
 # %>%
