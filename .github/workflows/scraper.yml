@@ -26,12 +26,16 @@ jobs:
             any::stringr
             any::jsonlite
             any::lubridate
+            any::curl
 
       - name: Check out repository
         uses: actions/checkout@v3
 
       - name: Import data
         run: Rscript script.R
+
+      - name: Set Workflow A Status
+        run: echo "success" > success.txt
 
       - name: Commit results
         run: |
