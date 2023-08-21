@@ -64,23 +64,23 @@ cat("/n")
 
 
 
-rr <- read_html(sites[3]) %>%
-  html_element(".highlight") %>%
-  html_element("a") %>%
-  html_attr("href")
-
-rr <- glue("https://rr.sapo.pt/{rr}")
-
-manchete_rr <- tibble(
-  time = Sys.time(),
-  titulo = rr %>% read_html() %>% html_nodes(xpath = '//meta[@property="og:title"]') %>% html_attr("content"),
-  thumb = rr %>% read_html() %>% html_nodes(xpath = '//meta[@property="og:image"]') %>% html_attr("content"),
-  desc = rr %>% read_html() %>% html_nodes(xpath = '//meta[@property="og:description"]') %>% html_attr("content"),
-  link = rr
-)
-
-cat(glue("getting {sites[3]}"))
-cat("/n")
+# rr <- read_html(sites[3]) %>%
+#   html_element(".highlight") %>%
+#   html_element("a") %>%
+#   html_attr("href")
+# 
+# rr <- glue("https://rr.sapo.pt/{rr}")
+# 
+# manchete_rr <- tibble(
+#   time = Sys.time(),
+#   titulo = rr %>% read_html() %>% html_nodes(xpath = '//meta[@property="og:title"]') %>% html_attr("content"),
+#   thumb = rr %>% read_html() %>% html_nodes(xpath = '//meta[@property="og:image"]') %>% html_attr("content"),
+#   desc = rr %>% read_html() %>% html_nodes(xpath = '//meta[@property="og:description"]') %>% html_attr("content"),
+#   link = rr
+# )
+# 
+# cat(glue("getting {sites[3]}"))
+# cat("/n")
 
 
 
@@ -290,7 +290,7 @@ cat("/n")
 
 to_publish <- manchete_publico %>%
   bind_rows(manchete_expresso) %>%
-  bind_rows(manchete_rr) %>%
+  # bind_rows(manchete_rr) %>%
   # bind_rows(manchete_dn) %>%
   bind_rows(manchete_cm) %>%
   bind_rows(manchete_tsf) %>%
