@@ -320,11 +320,12 @@ if(nrow(df) == 0) {
   toJSON(noticia_a_publicar) %>% write("apublicar.json")
 }
 
-
 noticias_publicadas <- noticias_publicadas %>% 
   bind_rows(noticia_a_publicar)
 
 noticias_publicadas %>% write_rds("noticias_pubicadas.rds")
+
+df <- df %>% anti_join(noticias_publicadas) %>% write_rds("por_publicar.rds")
 
 
 
