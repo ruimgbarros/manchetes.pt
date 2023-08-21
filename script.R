@@ -126,20 +126,20 @@ manchete_tsf <- tibble(
 )
 
 
-# rtp <- read_html(sites[7]) %>%
-#   html_element("section") %>%
-#   html_element("a") %>%
-#   html_attr("href") %>%
-#   str_trim()
-# 
-# 
-# manchete_rtp <- tibble(
-#   time = Sys.time(),
-#   titulo = rtp %>% read_html() %>% html_nodes(xpath = '//meta[@property="og:title"]') %>% html_attr("content"),
-#   thumb = rtp %>% read_html() %>% html_nodes(xpath = '//meta[@property="og:image"]') %>% html_attr("content"),
-#   desc = rtp %>% read_html() %>% html_nodes('meta[name="description"]') %>% html_attr("content"),
-#   link = rtp
-# )
+rtp <- read_html(sites[7]) %>%
+  html_element("section") %>%
+  html_element("a") %>%
+  html_attr("href") %>%
+  str_trim()
+
+
+manchete_rtp <- tibble(
+  time = Sys.time(),
+  titulo = rtp %>% read_html() %>% html_nodes(xpath = '//meta[@property="og:title"]') %>% html_attr("content"),
+  thumb = rtp %>% read_html() %>% html_nodes(xpath = '//meta[@property="og:image"]') %>% html_attr("content"),
+  desc = rtp %>% read_html() %>% html_nodes('meta[name="description"]') %>% html_attr("content"),
+  link = rtp
+)
 
 
 
@@ -254,9 +254,8 @@ to_publish <- manchete_publico %>%
   bind_rows(manchete_rr) %>%
   bind_rows(manchete_dn) %>%
   bind_rows(manchete_cm) %>%
-  bind_rows(manchete_tsf) 
-#%>%
-  # bind_rows(manchete_rtp) 
+  bind_rows(manchete_tsf) %>%
+  bind_rows(manchete_rtp) 
 #%>%
   # bind_rows(manchete_sic) 
 #%>%
