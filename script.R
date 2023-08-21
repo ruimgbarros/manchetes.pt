@@ -303,10 +303,10 @@ to_publish <- manchete_publico %>%
 
 df <- read_rds("por_publicar.rds") %>%
   bind_rows(to_publish) %>%
-  distinct(titulo, .keep_all = T)
+  distinct(link, .keep_all = T)
 
 noticias_publicadas <- read_rds("noticias_pubicadas.rds") %>% 
-  distinct(titulo, .keep_all = T)
+  distinct(link, .keep_all = T)
 
 df <- df %>%
   anti_join(noticias_publicadas) %>%
