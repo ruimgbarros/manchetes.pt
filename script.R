@@ -269,6 +269,11 @@ df <- read_rds("por_publicar.rds") %>%
   bind_rows(to_publish) %>%
   distinct(titulo, .keep_all = T)
 
+noticias_publicadas <- read_rds("noticias_pubicadas.rds")
+
+df <- df %>%
+  anti_join(noticias_publicadas) %>%
+  filter(time >= (Sys.time() - hours(8)))
 
 random_index <- sample(1:nrow(to_publish), 1)
 
@@ -276,15 +281,11 @@ noticia_a_publicar <- df[random_index,]
 toJSON(noticia_a_publicar) %>% write("apublicar.json")
 
 
-noticias_publicadas <- read_rds("noticias_pubicadas.rds") %>%
-  bind_rows(noticia_a_publicar) %>%
-  distinct(titulo, .keep_all = T)
+noticias_publicadas <- noticias_publicadas %>% 
+  bind_rows(noticia_a_publicar)
 
 noticias_publicadas %>% write_rds("noticias_pubicadas.rds")
 
-df <- df %>%
-  anti_join(noticias_publicadas) %>%
-  filter(time >= (Sys.time() - hours(8)))
 
 
 
