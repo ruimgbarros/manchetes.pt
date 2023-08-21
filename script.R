@@ -4,6 +4,7 @@ library(glue)
 library(stringr)
 library(jsonlite)
 library(lubridate)
+library(curl)
 
 sites <- c("https://www.publico.pt/", 
            "https://expresso.pt/", 
