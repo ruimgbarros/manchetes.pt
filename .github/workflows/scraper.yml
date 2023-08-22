@@ -27,6 +27,7 @@ jobs:
             any::jsonlite
             any::lubridate
             any::curl
+            any::httr
 
       - name: Check out repository
         uses: actions/checkout@v3
