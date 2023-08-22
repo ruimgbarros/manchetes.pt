@@ -32,7 +32,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Import data
-        run: Rscript script.R
+        run: Rscript script2.R
 
       - name: Set Workflow A Status
         run: echo "success" > success.txt
