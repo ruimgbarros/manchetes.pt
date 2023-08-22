@@ -34,6 +34,10 @@ while (is.na(links[1,2])) {
     html_element("a") %>% 
     html_attr("href") %>% 
     url_absolute(links[1,1])
+  
+  cat(links[1,2])
+  cat("\n")
+  cat("\n")
 }
 
 while (is.na(links[2,2])) {
@@ -44,6 +48,10 @@ while (is.na(links[2,2])) {
     html_element("a") %>%
     html_attr("href") %>%
     url_absolute(links[2,1])
+  
+  cat(links[2,2])
+  cat("\n")
+  cat("\n")
 }
 
 
@@ -54,6 +62,10 @@ while (is.na(links[3,2])) {
     html_element("a") %>%
     html_attr("href") %>%
     url_absolute(links[3,1])
+  
+  cat(links[3,2])
+  cat("\n")
+  cat("\n")
 }
 
 while (is.na(links[4,2])) {
@@ -63,6 +75,10 @@ while (is.na(links[4,2])) {
     html_element("a") %>%
     html_attr("href") %>%
     url_absolute(links[4,1])
+  
+  cat(links[4,2])
+  cat("\n")
+  cat("\n")
 }
 
 while (is.na(links[5,2])) {
@@ -75,6 +91,10 @@ while (is.na(links[5,2])) {
     html_element("a") %>%
     html_attr("href") %>%
     url_absolute(links[5,1])
+  
+  cat(links[5,2])
+  cat("\n")
+  cat("\n")
 
 }
 
@@ -86,6 +106,10 @@ while (is.na(links[6,2])) {
     html_element("a") %>%
     html_attr("href") %>%
     url_absolute(links[6,1])
+  
+  cat(links[6,2])
+  cat("\n")
+  cat("\n")
 }
 
 while (is.na(links[7,2])) {
@@ -95,6 +119,10 @@ while (is.na(links[7,2])) {
     html_element("a") %>%
     html_attr("href")  %>%
     str_trim()
+  
+  cat(links[7,2])
+  cat("\n")
+  cat("\n")
 }
 
 
@@ -106,6 +134,10 @@ while (is.na(links[8,2])) {
     html_element("a") %>%
     html_attr("href") %>%
     url_absolute(links[8,1])
+  
+  cat(links[8,2])
+  cat("\n")
+  cat("\n")
 }
 
 
@@ -115,6 +147,10 @@ while (is.na(links[9,2])) {
     html_element(".manchetes") %>%
     html_element("a") %>%
     html_attr("href")
+  
+  cat(links[9,2])
+  cat("\n")
+  cat("\n")
 
 }
 
@@ -126,6 +162,10 @@ while (is.na(links[10,2])) {
     html_element("a") %>%
     html_attr("href")
 
+  
+  cat(links[10,2])
+  cat("\n")
+  cat("\n")
 }
 
 
@@ -136,6 +176,9 @@ while (is.na(links[11,2])) {
     html_element("a") %>%
     html_attr("href")
 
+  cat(links[11,2])
+  cat("\n")
+  cat("\n")
 }
 
 while (is.na(links[12,2])) {
@@ -145,6 +188,10 @@ while (is.na(links[12,2])) {
     html_element("a") %>%
     html_attr("href") %>%
     url_absolute(links[12,1])
+  
+  cat(links[12,2])
+  cat("\n")
+  cat("\n")
 
 }
 
@@ -155,6 +202,10 @@ while (is.na(links[13,2])) {
     html_element("a") %>%
     html_attr("href") %>%
     url_absolute(links[13,1])
+  
+  cat(links[13,2])
+  cat("\n")
+  cat("\n")
 }
 
 
@@ -176,9 +227,9 @@ for (i in 1:length(links$sites)) {
   link <- clean_link(links$links[i])
   page <- read_html(link)
   
-  cat(link)
-  cat("\n")
-  cat("\n")
+    cat(link)
+    cat("\n")
+    cat("\n")
   
   manchete <- tibble(
     time = Sys.time(),
