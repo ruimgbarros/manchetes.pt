@@ -10,7 +10,7 @@ on:
 
 jobs:
   import-data:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
 
     steps:
       - name: Set up R
