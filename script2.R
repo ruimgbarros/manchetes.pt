@@ -6,6 +6,7 @@ library(jsonlite)
 library(lubridate)
 library(curl)
 library(xml2)
+library(httr)
 
 sites <- c("https://www.publico.pt/" ,
            "https://expresso.pt/",
