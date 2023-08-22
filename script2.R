@@ -13,7 +13,7 @@ sites <- c("https://www.publico.pt/" ,
            "https://www.dn.pt/",
            "https://www.cmjornal.pt/",
            "https://www.tsf.pt/",
-           "https://www.rtp.pt/noticias/",
+           "https://24.sapo.pt/",
            "https://sicnoticias.pt/",
            "https://cnnportugal.iol.pt/",
            "https://observador.pt/",
@@ -115,10 +115,10 @@ while (is.na(links[6,2])) {
 while (is.na(links[7,2])) {
 
   links[7,2] <- read_html(sites[7]) %>%
-    html_element("section") %>%
+    html_element(".main") %>%
     html_element("a") %>%
     html_attr("href")  %>%
-    str_trim()
+    url_absolute(links[7,1])
   
   cat(links[7,2])
   cat("\n")
