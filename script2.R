@@ -7,19 +7,19 @@ library(lubridate)
 library(curl)
 library(xml2)
 
-sites <- c("https://www.publico.pt/" 
-           # "https://expresso.pt/", 
-           # "https://rr.sapo.pt/",
-           # "https://www.dn.pt/",
-           # "https://www.cmjornal.pt/",
-           # "https://www.tsf.pt/",
-           # "https://www.rtp.pt/noticias/",
-           # "https://sicnoticias.pt/",
-           # "https://cnnportugal.iol.pt/",
-           # "https://observador.pt/",
-           # "https://www.noticiasaominuto.com/",
-           # "https://sol.sapo.pt/",
-           # "https://ionline.sapo.pt/"
+sites <- c("https://www.publico.pt/" ,
+           "https://expresso.pt/",
+           "https://rr.sapo.pt/",
+           "https://www.dn.pt/",
+           "https://www.cmjornal.pt/",
+           "https://www.tsf.pt/",
+           "https://www.rtp.pt/noticias/",
+           "https://sicnoticias.pt/",
+           "https://cnnportugal.iol.pt/",
+           "https://observador.pt/",
+           "https://www.noticiasaominuto.com/",
+           "https://sol.sapo.pt/",
+           "https://ionline.sapo.pt/"
            )
 
 links <- data.frame(
@@ -82,8 +82,7 @@ while (is.na(links[5,2])) {
 while (is.na(links[6,2])) {
 
   links[6,2] <- read_html(sites[6]) %>%
-    html_element(".t-section-1") %>%
-    html_element("article") %>%
+    html_element(xpath = "/html/body/ngx-body/main/section[2]") %>% 
     html_element("a") %>%
     html_attr("href") %>%
     url_absolute(links[6,1])
@@ -161,11 +160,25 @@ while (is.na(links[13,2])) {
 
 to_publish <- data.frame()
 
+clean_link <- function(text) {
+  link <- str_trim(text)
+  
+  link <- sub("\\?ref=.*", "", link)
+
+  return(link)  
+}
+
+
 
 for (i in 1:length(links$sites)) {
   
-  link <- links$links[i]
+  
+  link <- clean_link(links$links[i])
   page <- read_html(link)
+  
+  cat(link)
+  cat("\n")
+  cat("\n")
   
   manchete <- tibble(
     time = Sys.time(),
