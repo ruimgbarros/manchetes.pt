@@ -254,7 +254,8 @@ noticias_publicadas <- read_rds("noticias_pubicadas.rds") %>%
 
 df <- df %>%
   anti_join(noticias_publicadas) %>%
-  filter(time >= (Sys.time() - hours(1)))
+  filter(time >= (Sys.time() - hours(1))) %>% 
+  distinct(link, .keep_all = T)
 
 if(nrow(df) == 0) {
   toJSON(df) %>% write("apublicar.json")
