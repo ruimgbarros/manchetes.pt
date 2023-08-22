@@ -225,7 +225,7 @@ for (i in 1:length(links$sites)) {
   
   
   link <- clean_link(links$links[i])
-  page <- read_html(link)
+  page <- read_html(GET(link))
   
     cat(link)
     cat("\n")
