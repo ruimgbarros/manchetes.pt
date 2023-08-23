@@ -20,7 +20,8 @@ sites <- c("https://www.publico.pt/" ,
            "https://observador.pt/",
            "https://www.noticiasaominuto.com/",
            "https://sol.sapo.pt/",
-           "https://ionline.sapo.pt/"
+           "https://ionline.sapo.pt/",
+           "https://www.rtp.pt/noticias/"
            )
 
 links <- data.frame(
@@ -209,6 +210,17 @@ while (is.na(links[13,2])) {
   cat("\n")
 }
 
+while (is.na(links[14,2])) {
+  links[14,2] <- read_html(sites[14]) %>%
+    html_element(".content-block1") %>%
+    html_element("a") %>%
+    html_attr("href")
+  
+  cat(links[14,2])
+  cat("\n")
+  cat("\n")
+}
+
 
 to_publish <- data.frame()
 
@@ -253,7 +265,7 @@ noticias_publicadas <- read_rds("noticias_pubicadas.rds") %>%
   distinct(link, .keep_all = T)
 
 df <- df %>%
-  anti_join(noticias_publicadas) %>%
+  anti_join(noticias_publicadas, by=c("link","titulo")) %>%
   filter(time >= (Sys.time() - hours(1))) %>% 
   distinct(link, .keep_all = T)
 
