@@ -20,8 +20,7 @@ sites <- c("https://www.publico.pt/" ,
            "https://observador.pt/",
            "https://www.noticiasaominuto.com/",
            "https://sol.sapo.pt/",
-           "https://ionline.sapo.pt/",
-           "https://www.rtp.pt/noticias/"
+           "https://ionline.sapo.pt/"
            )
 
 links <- data.frame(
@@ -210,16 +209,6 @@ while (is.na(links[13,2])) {
   cat("\n")
 }
 
-while (is.na(links[14,2])) {
-  links[14,2] <- read_html(sites[14]) %>%
-    html_element(".content-block1") %>%
-    html_element("a") %>%
-    html_attr("href")
-  
-  cat(links[14,2])
-  cat("\n")
-  cat("\n")
-}
 
 
 to_publish <- data.frame()
