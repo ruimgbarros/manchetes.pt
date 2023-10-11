@@ -130,8 +130,7 @@ while (is.na(links[7,2])) {
 while (is.na(links[8,2])) {
 
   links[8,2] <- read_html(sites[8]) %>%
-    html_element(".wrapper") %>%
-    html_element("section") %>%
+    html_element(".teaser-article") %>%
     html_element("a") %>%
     html_attr("href") %>%
     url_absolute(links[8,1])
